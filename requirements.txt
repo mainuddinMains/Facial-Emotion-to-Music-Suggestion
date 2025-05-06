@@ -1,0 +1,9 @@
+torch
+torchvision
+transformers
+opencv-python
+Pillow
+gradio
+groq
+python-dotenv
+requests
