@@ -1,9 +1,7 @@
-torch
-torchvision
-transformers
-opencv-python
-Pillow
-gradio
-groq
+gradio>=3.0
 python-dotenv
-requests
+transformers
+torch
+opencv-python
+groq
+spotipy
