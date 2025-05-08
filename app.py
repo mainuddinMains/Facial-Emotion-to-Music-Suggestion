@@ -102,9 +102,6 @@ def format_output(emotion, confidence, suggestion, track_info, video_url=None):
     <div style='margin-bottom: 20px;'>
         <h2 style='color: #4a6fa5;'>🎭 Detected Emotion: {emotion.title()} ({confidence:.0%} confidence)</h2>
         <h3 style='color: #5e6ad2;'>🎵 AI Recommendation:</h3>
-        <blockquote style='color: #000000; background: #f8f9fa; padding: 15px; border-left: 4px solid #5e6ad2;'>
-            {suggestion}
-        </blockquote>
     """
     
     if track_info:
@@ -142,7 +139,8 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Emotion Music Matcher") as demo:
             
             # Hidden components for media
             video_player = gr.Video(visible=False)
-            album_art = gr.Image(visible=False)
+            album_art = gr.Image(label="Album Cover", visible=True, height=300)
+
     
     submit_btn.click(
         fn=process_input,
