@@ -1,6 +1,6 @@
 # Emotion-Based Music Recommender 🎭→🎧
 
-![Project Demo](assets/demo.gif) *(Example GIF showing the interface in action)*
+![Project Demo](assets/demo.gif) 
 
 ## Project Description
 A real-time emotion detection system that suggests music based on your current mood. The application:
@@ -69,7 +69,7 @@ pip install -r requirements.txt
 ### 3. Configuration
 Create a .env file with your API keys:
 ```bash
-env
+#.env
 GROQ_API_KEY=your_groq_key_here
 SPOTIPY_CLIENT_ID=your_spotify_client_id
 SPOTIPY_CLIENT_SECRET=your_spotify_secret
