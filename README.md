@@ -11,3 +11,4 @@ short_description: Detect your mood by your webcam and discover matching songs
 ---
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+# Facial-Emotion-to-Music-Suggestion
