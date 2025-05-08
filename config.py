@@ -1,0 +1,3 @@
+ENABLE_YOUTUBE = True
+SUPPRESS_WARNINGS = True
+YT_API_KEY = "your_key_here"  
