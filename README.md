@@ -47,10 +47,6 @@ API keys for:
 Groq
 Spotify
 YouTube (optional)
-2. Installation
-# Clone the repository
-git clone https://github.com/your-username/emotion-music-recommender.git
-cd emotion-music-recommender
 
 # Create virtual environment
 python -m venv venv
@@ -70,4 +66,3 @@ SPOTIPY_CLIENT_SECRET=your_spotify_secret
 YT_API_KEY=your_youtube_key  # Optional
 4. Running the Application
 python app.py
-The interface will launch at http://localhost:7860
