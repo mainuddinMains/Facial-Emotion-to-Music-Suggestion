@@ -64,7 +64,9 @@ venv\Scripts\activate     # Windows
 
 # Install dependencies
 pip install -r requirements.txt
-3. Configuration
+```
+
+### 3. Configuration
 Create a .env file with your API keys:
 
 env
@@ -72,7 +74,8 @@ GROQ_API_KEY=your_groq_key_here
 SPOTIPY_CLIENT_ID=your_spotify_client_id
 SPOTIPY_CLIENT_SECRET=your_spotify_secret
 YT_API_KEY=your_youtube_key  # Optional
-4. Running the Application
+
+### 4. Running the Application
 bash
 python app.py
 The interface will launch at http://localhost:7860
