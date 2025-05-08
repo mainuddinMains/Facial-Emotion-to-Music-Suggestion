@@ -1,4 +1,4 @@
-# 🎭 Emotion to Song Matcher (via Groq)
+#  Emotion to Song Matcher (via Groq)
 
 A fun AI-powered tool that detects your emotion and uses **Groq AI** to suggest matching songs!
 
