@@ -249,39 +249,63 @@ def process_input(use_webcam: bool, genre_preference: str = None):
 
 def parse_song_query(text: str) -> str:
     patterns = [
-        r'"(.*?)"\s+by\s+([^\n.]+)',
-        r'([^\n"“”]+)\s+-\s+([^\n.]+)',
-        r'([^\n"“”]+)\s+by\s+([^\n.]+)'
+        r'”(.*?)”\s+by\s+([^\n.]+)',
+        r'([^\n”””]+)\s+-\s+([^\n.]+)',
+        r'([^\n”””]+)\s+by\s+([^\n.]+)'
     ]
     for pattern in patterns:
         if match := re.search(pattern, text):
-            return f"{match.group(1)} {match.group(2)}"
+            return f”{match.group(1)} {match.group(2)}”
     return None
 
+def parse_suggestion_parts(text: str):
+    “””Returns (title, artist) tuple from a suggestion string, or (text, None).”””
+    patterns = [
+        r'”(.*?)”\s+by\s+([^\n.]+)',
+        r'([^\n”””]+)\s+-\s+([^\n.]+)',
+        r'([^\n”””]+)\s+by\s+([^\n.]+)',
+    ]
+    for pattern in patterns:
+        if match := re.search(pattern, text):
+            return match.group(1).strip(), match.group(2).strip()
+    return text.strip(), None
+
 def format_output_multiple(emotion, confidence, suggestion, tracks, video_urls=None):
-    msg = f"""
+    msg = f”””
     <div style='margin-bottom: 20px;'>
         <h2 style='color: #4a6fa5;'>🎭 Detected Emotion: {emotion.title()} ({confidence:.0%} confidence)</h2>
         <h3 style='color: #5e6ad2;'>🎵 AI Recommendations:</h3>
-    """
-    
+    “””
+
     if tracks:
         for i, track in enumerate(tracks):
             video_url = video_urls[i] if video_urls and i < len(video_urls) else None
-            msg += f"""
+            msg += f”””
             <div style='background: #f5f5f5; padding: 15px; border-radius: 10px; margin-top: 20px;'>
                 <h3 style='color: #4a6fa5;'>💿 {track.get('title', 'Unknown')}</h3>
                 <p style='font-size: 16px; color: #000000;'>by {track.get('artist', 'Unknown')}</p>
                 <div style='margin-top: 15px;'>
-                    {f"<a href='{video_url}' target='_blank' style='background: #ff0000; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; margin-right: 10px;'>▶ Watch on YouTube</a>" if video_url else ""}
-                    {f"<a href='{track['spotify_url']}' target='_blank' style='background: #1DB954; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none;'>🎧 Listen on Spotify</a>" if track.get('spotify_url') else ""}
+                    {f”<a href='{video_url}' target='_blank' style='background: #ff0000; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; margin-right: 10px;'>▶ Watch on YouTube</a>” if video_url else “”}
+                    {f”<a href='{track['spotify_url']}' target='_blank' style='background: #1DB954; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none;'>🎧 Listen on Spotify</a>” if track.get('spotify_url') else “”}
                 </div>
             </div>
-            """
+            “””
     else:
-        msg += "<p>No tracks found.</p>"
-    
-    msg += "</div>"
+        title, artist = parse_suggestion_parts(suggestion)
+        artist_line = f”<p style='font-size: 16px; color: #000000;'>by {artist}</p>” if artist else “”
+        msg += f”””
+        <div style='background: #f5f5f5; padding: 15px; border-radius: 10px; margin-top: 20px;'>
+            <h3 style='color: #4a6fa5;'>💿 {title}</h3>
+            {artist_line}
+            <p style='color: #888; font-size: 13px; margin-top: 10px;'>
+                Spotify unavailable — search for this song manually on
+                <a href='https://open.spotify.com/search/{re.sub(r”[^a-zA-Z0-9 ]”, “”, title + “ “ + (artist or “”)).replace(“ “, “%20”)}' target='_blank' style='color: #1DB954;'>Spotify</a> or
+                <a href='https://www.youtube.com/results?search_query={re.sub(r”[^a-zA-Z0-9 ]”, “”, title + “ “ + (artist or “”)).replace(“ “, “+”)}' target='_blank' style='color: #ff0000;'>YouTube</a>.
+            </p>
+        </div>
+        “””
+
+    msg += “</div>”
     return msg
 
 with gr.Blocks(theme=gr.themes.Soft(), title="Emotion Music Matcher") as demo:
