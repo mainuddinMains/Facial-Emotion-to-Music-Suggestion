@@ -40,3 +40,7 @@ def get_youtube_video_url_pytube(song_query: str) -> str:
     except Exception as e:
         print(f"Pytube fallback failed: {str(e)}")
         return None
+    
+
+import sys
+print(f"Using Python interpreter: {sys.executable}")

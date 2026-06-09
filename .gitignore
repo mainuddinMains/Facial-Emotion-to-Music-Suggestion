@@ -1,0 +1,21 @@
+# Environment / secrets
+.env
+.cache
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# OS
+.DS_Store
+
+# Runtime generated files
+webcam_capture.jpg
+tts_fallback.mp3
